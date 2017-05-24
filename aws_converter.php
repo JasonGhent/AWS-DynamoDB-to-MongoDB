@@ -20,8 +20,9 @@ function aws_converter($old) {
 	foreach($old as $k=>$v) {
 		if(!empty($v['s']) && substr($v['s'], 0, 1) == "{") { 
 			$new[$k] = json_decode($v['s'], true);
+		} else {
+			$new[$k] = isset($v['s']) && !is_null($v['s']) ? $v['s'] : $v['sS'];
 		}
-		else { $new[$k] = $v['s']; }
 	}
 	return $new;
 }

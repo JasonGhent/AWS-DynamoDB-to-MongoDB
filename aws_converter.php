@@ -3,14 +3,18 @@
  * *nix pipe handler
  */
 $input_stream = fopen("php://stdin","r");
+header('Content-Type: application/json');
+
+$json = array();
 while($line = fgets($input_stream))
 {
 	$array = json_decode($line,true);
 	$array = aws_converter($array);
-	print(json_encode($array)."\n");
+	array_push($json, $array);
 }
-fclose($input_stream);
 
+print(json_encode($array)."\n");
+fclose($input_stream);
 
 /*
  * conversion function from string attributes to proper JSON.
